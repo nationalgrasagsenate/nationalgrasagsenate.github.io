@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <style>
+    .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  button:hover, a:hover {
+    opacity: 0.7;
+  }
+   
+  .image-preview {
+      width: 300px;
+      min-height: 100px;
+      border: 2px solid #dddddd;
+      margin-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #cccccc;
+  }
+  .image-preview__image{
+      display: none;
+      width: 100%;
+  }
+    </style>
+
+</head>
+<body>
+
+   
+    
+
+
+<div class="card">
+
+        <div class="image-preview" id="imagePreview">
+                <img class="image-preview__image" id="v" src="" alt="Profile Pic">
+                <span class="image-preview__default-text">Image Preview</span>
+             </div>
+
+    <form id="uploadForm" action="https://script.google.com/macros/s/AKfycbxFjVtwiNixlKO_3ZkvGu_whn-odCdjE9IR_1bP4X_1no7Q9qKt/exec" method="POST">
+  <input type="hidden" value="" name="fileContent" id="fileContent">
+  <input type="hidden" value="" name="filename" id="filename">
+  
+ 
+<p><input name="name" id="name" type="text" placeholder="FULL NAME" required></p>
+<p><input name="school" id="school" type="text" placeholder="SCHOOL" required></p>
+<p><input name="position" id="position" type="text" placeholder="POSITION" required></p>
+ 
+
+</form>
+<input required id="attach" name="attach" type="file"/>
+<p><button onclick="UploadFile();">Submit</button></p>
+
+</div>
+
+
+<script>
+function UploadFile() {
+  var reader = new FileReader();
+  var file = document.getElementById('attach').files[0];
+  reader.onload = function(){
+    document.getElementById('fileContent').value=reader.result;
+	document.getElementById('filename').value=file.name;
+    document.getElementById('uploadForm').submit();
+  }
+  reader.readAsDataURL(file);
+}
+const inpfile=document.getElementById("attach");
+const previewContainer=document.getElementById("imagePreview");
+const previewImage=previewContainer.querySelector(".image-preview__image");
+const previewDefaultText=previewContainer.querySelector(".image-preview__default-text");
+   
+inpfile.addEventListener("change", function(){
+       const file=this.files[0];
+       if (file){
+           const reader=new FileReader();
+           previewDefaultText.style.display="none";
+           previewImage.style.display="block";
+           reader.addEventListener("load", function(){
+               previewImage.setAttribute("src",this.result);
+           });
+           reader.readAsDataURL(file);
+       } else{
+           previewDefaultText.style.display=null;
+           previewImage.style.display=null;
+           previewImage.setAttribute("src","");
+       }
+   }) 
+</script>
+    
+  </body>
+</html>
