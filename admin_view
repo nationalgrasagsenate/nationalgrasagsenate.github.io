@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PROFILES</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .flex-container>div {
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+      max-width: 300px;
+
+      margin: 10px;
+      text-align: center;
+    }
+
+
+    .title {
+      color: grey;
+      font-size: 18px;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    div h1 {
+      text-transform: uppercase;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <h1 style="text-align: center">REGISTERED MEMBERS</h1>
+  <div id="xx" class='flex-container'>
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js'></script>
+  <script type='text/javascript'>
+    var publicSpreadsheetUrl = '1Hp6zz_f8l9RV2Wgf1RjV8_J3VkE-rk4Q02UKJudpfPk';
+
+    function init() {
+      Tabletop.init({
+        key: publicSpreadsheetUrl,
+        callback: showInfo,
+        simpleSheet: true
+      })
+    }
+
+    function showInfo(data) {
+
+      var html = "";
+
+
+      for (i = 0; i < data.length; i++) {
+        var a = data[i].picture;
+        var aa = a.substring(32, 65);
+        var cc = 'https://drive.google.com/uc?id=' + aa;
+        var dd = "'" + cc + "'";
+        html += "<div><img src=" + cc + "><h1>" + data[i].name + "</h1><h3>" + data[i].school + "</h3><h3>" + data[i]
+          .position + "</h3></div>"
+
+      }
+
+      html += "</div>";
+      console.log(html);
+
+      document.getElementById("xx").innerHTML += html;
+
+    }
+
+    window.addEventListener('DOMContentLoaded', init)
+  </script>
+
+
+</body>
+
+</html>
